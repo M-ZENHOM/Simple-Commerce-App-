@@ -230,7 +230,11 @@ export const AppForms = () => {
                 type="text"
                 placeholder="Enter your email"
               />
-              <CustomInput name="address" type="text" placeholder="Address" />
+              <CustomInput
+                name="address:3344 W Alameda Avenue, Lakewood, CO 80222"
+                type="text"
+                placeholder="Address"
+              />
               <CustomInput name="city" type="text" placeholder="City" />
               <MyBtn type="submit">NEXT</MyBtn>
               <MyBtn as={Link} to="/">
