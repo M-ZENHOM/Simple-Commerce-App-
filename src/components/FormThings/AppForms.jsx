@@ -231,9 +231,9 @@ export const AppForms = () => {
                 placeholder="Enter your email"
               />
               <CustomInput
-                name="address:3344 W Alameda Avenue, Lakewood, CO 80222"
+                name="address"
                 type="text"
-                placeholder="Address"
+                placeholder="Address:3344 W Alameda Avenue, Lakewood, CO 80222"
               />
               <CustomInput name="city" type="text" placeholder="City" />
               <MyBtn type="submit">NEXT</MyBtn>
