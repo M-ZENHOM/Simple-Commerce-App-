@@ -4,7 +4,7 @@ A new react redux/toolkit - bootstrap - styled-components commerce app with fake
 
 # - Demo Link:
 
-<a href="https://to-do-lists-with-redux-toolkit.vercel.app/">COMMERCE APP LIVE</a>
+<a href="simple-commerce-app.vercel.app">COMMERCE APP LIVE</a>
 
 # - Some Imgs
 
