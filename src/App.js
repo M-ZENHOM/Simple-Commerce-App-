@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Route, Routes } from "react-router-dom";
 import { AppNavbar } from "./components/AppNavbar";
 import { Cart } from "./components/Cart/Cart";
-import { CheckOut } from "./components/checkout/CheckOut";
+import CheckOut from "./components/checkout/CheckOut";
 import { Products } from "./components/Products";
 import GlobalStyles from "./GlobalStyles";
 

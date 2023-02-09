@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { AppForms } from "../FormThings/AppForms";
+import withGuard from "../util/withGuard";
 
 const Container = styled.div`
   padding: 10px;
@@ -19,8 +20,7 @@ const Heading = styled.h2`
   text-transform: uppercase;
   margin-top: 30px;
 `;
-
-export const CheckOut = () => {
+const CheckOut = () => {
   return (
     <Container>
       <Heading>Checkout</Heading>
@@ -28,3 +28,5 @@ export const CheckOut = () => {
     </Container>
   );
 };
+
+export default withGuard(CheckOut);
