@@ -7,6 +7,7 @@ import { clear } from "../../rtk/slices/cart-slice";
 import { OrderSummary } from "../checkout/OrderSummary";
 import { CreditSchema, ValidateSchema } from "../Schema";
 import { CustomInput } from "./CustomInput";
+import ShippingInfo from "./ShippingInfo";
 
 const MyForm = styled(Form)`
   display: flex;
@@ -117,18 +118,7 @@ const Total = styled.h5`
   padding: 20px 0;
   border-bottom: 1px solid #dcdfe6;
 `;
-const Info = styled.h5`
-  display: flex;
-  justify-content: baseline;
-  align-items: center;
-  padding: 4px 0;
-  span {
-    font-size: 18px;
-    font-weight: normal;
-    margin-left: 10px;
-    margin-top: 4px;
-  }
-`;
+
 const PaymentSucssBox = styled.div`
   position: absolute;
   top: 50%;
@@ -237,7 +227,7 @@ export const AppForms = () => {
               />
               <CustomInput name="city" type="text" placeholder="City" />
               <MyBtn type="submit">NEXT</MyBtn>
-              <MyBtn as={Link} to="/">
+              <MyBtn onClick={() => navigate("/", { replace: true })}>
                 BACK TO CART
               </MyBtn>
             </MyForm>
@@ -248,18 +238,7 @@ export const AppForms = () => {
           <SmallContainer>
             <OrderSummary data={cart} />
           </SmallContainer>
-          <SmallContainer>
-            <h4>Shipping Info</h4>
-            <Info>
-              Your name: <span>{userData.fristName + userData.lastName}</span>
-            </Info>
-            <Info>
-              City: <span>{userData.city}</span>
-            </Info>
-            <Info>
-              ShippingAddress: <span>{userData.address}</span>
-            </Info>
-          </SmallContainer>
+          <ShippingInfo data={userData} />
           <Total>
             Total: <span>{totalPrice}$</span>
           </Total>
@@ -282,7 +261,7 @@ export const AppForms = () => {
                 <CustomInput name="date" type="text" placeholder="Date" />
                 <CustomInput name="cvc" type="number" placeholder="CVC" />
                 <MyBtn type="submit">PAY</MyBtn>
-                <MyBtn as={Link} to="/">
+                <MyBtn onClick={() => navigate("/", { replace: true })}>
                   BACK TO CART
                 </MyBtn>
               </MyForm>
