@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 const SmallContainer = styled.div`
@@ -18,7 +19,8 @@ const Info = styled.h5`
   }
 `;
 
-const ShippingInfo = ({ data }) => {
+const ShippingInfo = () => {
+  const data = useSelector((state) => state.user);
   return (
     <SmallContainer>
       <h4>Shipping Info</h4>

@@ -1,52 +1,76 @@
-import React, { useState } from "react";
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { MdShoppingCart } from "react-icons/md";
-import { FcShop } from "react-icons/fc";
+import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
+import { ShoppingOutlined, UserOutlined } from "@ant-design/icons";
+import { RespContainer } from "../GlobalStyles";
+import { Badge } from "antd";
 
-const Logo = styled(Link)`
-  display: flex;
-  align-items: center;
-  svg {
-    margin-right: 10px;
-    font-size: 30px;
-  }
-`;
-const CartIcon = styled(Link)`
-  display: flex;
-  align-items: center;
-  font-size: 25px;
-  p {
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    font-size: 18px;
-    background-color: #ffc107;
-    color: #000;
-    text-align: center;
-    line-height: 25px;
-    margin-left: -5px;
-  }
-`;
-
-export const AppNavbar = () => {
+export const AppNavbar = ({ isScroll }) => {
   const cart = useSelector((state) => state.cart);
   return (
-    <Navbar fixed="top" bg="dark" expand="lg" variant="dark">
-      <Container>
-        <Logo className="navbar-brand" to="/">
-          <FcShop />
-          Commerce App
-        </Logo>
-        <CartIcon className="nav-link" to="/cart">
-          <MdShoppingCart color="#fff" />
-          <p>{cart.length === 0 ? "0" : cart.length}</p>
-        </CartIcon>
-      </Container>
-    </Navbar>
+    <NavBar className={`${isScroll && "scrolled"}`}>
+      <RespContainer>
+        <NavContainer>
+          <NavLinks>
+            <Logo>Ecommerce</Logo>
+            <NavBarLink to="/">Home</NavBarLink>
+          </NavLinks>
+          <Icons>
+            <Badge count={cart.length}>
+              <Link to="cart">
+                <ShoppingOutlined
+                  style={{ color: "#000", fontSize: "20px", cursor: "pointer" }}
+                />
+              </Link>
+            </Badge>
+            <UserOutlined
+              style={{ color: "#000", fontSize: "20px", cursor: "pointer" }}
+            />
+          </Icons>
+        </NavContainer>
+      </RespContainer>
+    </NavBar>
   );
 };
+
+const NavBar = styled.nav`
+  width: 100%;
+  height: 6vh;
+  z-index: 10;
+  background-color: white;
+  &.scrolled {
+    position: fixed;
+    top: 0;
+  }
+`;
+const NavContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+`;
+const NavLinks = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  color: #000;
+`;
+const NavBarLink = styled(NavLink)`
+  color: #000;
+  margin-left: 10px;
+`;
+const Icons = styled.div`
+  width: 100px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+`;
+
+const Logo = styled(Link)`
+  font-size: 24px;
+  text-decoration: none;
+  margin-right: 20px;
+  color: #000;
+`;

@@ -1,65 +1,83 @@
-import React, { useEffect } from "react";
-import { Col, Container, Row } from "react-bootstrap";
-import Card from "react-bootstrap/Card";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { addToCart } from "../rtk/slices/cart-slice";
-import { fetchProducts } from "../rtk/slices/products-slice";
-import { MdAddShoppingCart } from "react-icons/md";
-
-const ProductsCard = styled(Card)`
-  width: 360px;
-  height: 400px;
-  margin: 5px;
-  img {
-    height: 200px;
-  }
-  p {
-    height: 80px;
-  }
-  &:hover {
-    button {
-      transition: 0.5s;
-      transform: scale(1.5);
-    }
-  }
-`;
-const CartBtn = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: none;
-  outline: none;
-  border: none;
-  font-size: 30px;
-  color: #000;
-`;
+import { fetchCategories, fetchProducts } from "../rtk/slices/products-slice";
+import { ShoppingCartOutlined, SearchOutlined } from "@ant-design/icons";
+import { Card, Skeleton } from "antd";
+import Filteration from "./Filteration";
+import { useNavigate } from "react-router-dom";
+const { Meta } = Card;
 
 export const Products = () => {
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.products);
+  const [loading, setLoading] = useState(true);
+  const products = useSelector((state) => state.products.products);
+  const { categories } = useSelector((state) => state.products);
+  const navigate = useNavigate();
+
+  const DetailsHandler = (id) => {
+    navigate(`/product/${id}`);
+    window.scroll(0, 0);
+  };
   useEffect(() => {
     dispatch(fetchProducts());
+    dispatch(fetchCategories());
+    setInterval(() => {
+      setLoading(false);
+    }, 1000);
   }, [dispatch]);
 
   return (
-    <Container className="py-5">
-      <Row className="py-5">
-        {products.map((product) => (
-          <Col key={product.id}>
-            <ProductsCard>
-              <ProductsCard.Img variant="top" src={product.thumbnail} />
-              <ProductsCard.Body>
-                <ProductsCard.Title>{product.title}</ProductsCard.Title>
-                <ProductsCard.Text>{product.description}</ProductsCard.Text>
-                <CartBtn onClick={() => dispatch(addToCart(product))}>
-                  <MdAddShoppingCart />
-                </CartBtn>
-              </ProductsCard.Body>
-            </ProductsCard>
-          </Col>
+    <>
+      <Filteration categories={categories} />
+      <Title>Products For You!</Title>
+      <GridSysyem>
+        {products?.map((product) => (
+          <Skeleton loading={loading} active avatar key={product.id}>
+            <Card
+              style={{
+                width: 335,
+                margin: "0 auto",
+              }}
+              cover={
+                <img
+                  style={{
+                    height: 200,
+                  }}
+                  alt="thumbnail"
+                  src={product.thumbnail}
+                />
+              }
+              actions={[
+                <ShoppingCartOutlined
+                  style={{ fontSize: "24px" }}
+                  onClick={() => dispatch(addToCart(product))}
+                />,
+                <SearchOutlined
+                  style={{ fontSize: "24px" }}
+                  onClick={() => DetailsHandler(product.id)}
+                />,
+              ]}
+            >
+              <Meta title={product.title} description={product.description} />
+            </Card>
+          </Skeleton>
         ))}
-      </Row>
-    </Container>
+      </GridSysyem>
+    </>
   );
 };
+
+const GridSysyem = styled.div`
+  width: 100%;
+  padding: 20px 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  margin: 0 auto;
+  gap: 10px;
+`;
+const Title = styled.h2`
+  display: flex;
+  width: 100%;
+`;

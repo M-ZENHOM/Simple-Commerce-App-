@@ -1,5 +1,5 @@
+import { Alert } from "antd";
 import { useField } from "formik";
-import React from "react";
 import styled from "styled-components";
 
 const MyInput = styled.input`
@@ -14,12 +14,6 @@ const MyInput = styled.input`
   }
 `;
 
-const ErrorMsg = styled.div`
-  color: red;
-  margin-top: -10px;
-  margin-left: 10px;
-`;
-
 export const CustomInput = ({ ...props }) => {
   const [field, meta] = useField(props);
   return (
@@ -29,7 +23,9 @@ export const CustomInput = ({ ...props }) => {
         {...props}
         className={meta.touched && meta.error ? "input-error" : ""}
       />
-      {meta.touched && meta.error && <ErrorMsg>{meta.error}</ErrorMsg>}
+      {meta.touched && meta.error && (
+        <Alert message={meta.error} type="error" showIcon />
+      )}
     </>
   );
 };
