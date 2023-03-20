@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import bgImg from "../assets/images/BG.jpg";
+import Footer from "../components/Footer";
+import Newsletter from "../components/Newsletter";
 import { Products } from "../components/Products";
 import { RespContainer } from "../GlobalStyles";
 
@@ -13,6 +15,8 @@ const Home = () => {
         </Intro>
       </Img>
       <Products />
+      <Newsletter />
+      <Footer />
     </RespContainer>
   );
 };
