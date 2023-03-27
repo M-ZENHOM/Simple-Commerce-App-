@@ -57,7 +57,7 @@ const Product = () => {
             Available {productDetails?.stock} In Stock
           </Descriptions.Item>
           <Descriptions.Item label="Rating">
-            <Rate allowHalf defaultValue={productDetails.rating.toFixed(0)} />
+            <Rate allowHalf defaultValue={productDetails.rating?.toFixed(0)} />
           </Descriptions.Item>
           <Descriptions.Item label="Price">
             <del style={{ color: "red", marginRight: "10px" }}>
